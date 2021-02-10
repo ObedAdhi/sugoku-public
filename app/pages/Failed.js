@@ -4,10 +4,6 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 
 
 function Failed ({ navigation, route }) {
-  // function handle() {
-  //   dispatch(solveBoard(board))
-  //   setDataCopy((newDataCopy = solvedBoard))
-  // }
 
   function handleToHome() {
     navigation.navigate('Home')
@@ -22,14 +18,6 @@ function Failed ({ navigation, route }) {
       <StatusBar style="auto" />
 
       <View style={styles.flexRowButton}>
-          {/* <View
-          style={{marginBottom: 30}}>
-            <Button
-              color="black"
-              onPress={() => handle()}
-              title="Play Again"
-            />
-          </View> */}
           <View
           style={{marginTop: 30}}>
             <Button
@@ -57,6 +45,5 @@ const styles = StyleSheet.create({
     marginBottom: 40
   },
 });
-
 
 export default Failed

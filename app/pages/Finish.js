@@ -4,13 +4,13 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 
 
 function Finish ({ navigation, route }) {
-  // function handle() {
-  //   dispatch(solveBoard(board))
-  //   setDataCopy((newDataCopy = solvedBoard))
-  // }
 
   function handleToHome() {
     navigation.navigate('Home')
+  }
+
+  function handleToLeaderBoard () {
+    navigation.navigate('Leader Board')
   }
 
   return (
@@ -21,24 +21,26 @@ function Finish ({ navigation, route }) {
       <Text>You finish Sugoku Oishi</Text>
       <StatusBar style="auto" />
 
+
       <View style={styles.flexRowButton}>
-          {/* <View
-          style={{marginBottom: 30}}>
-            <Button
-              color="black"
-              onPress={() => handle()}
-              title="Play Again"
-            />
-          </View> */}
-          <View
-          style={{marginTop: 30}}>
-            <Button
-              color="black"
-              onPress={() => handleToHome()}
-              title="Back To Home"
-            />
-          </View>
+        <View
+        style={{marginVertical: 30}}>
+          <Button
+            color="black"
+            onPress={() => handleToHome()}
+            title="Back To Home"
+          />
         </View>
+        <View>
+          <Button
+            color="black"
+            onPress={() => handleToLeaderBoard()}
+            title="See Leaderboard"
+          />
+        </View>
+      </View>
+
+
     </View>
   );
 }

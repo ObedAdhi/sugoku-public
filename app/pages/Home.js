@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
 import {Picker} from '@react-native-picker/picker'
 
-
 const Home = ({ navigation }) => {
   const [ username, setUsername ] = useState('')
   const [ difficulty, setDifficulty ] = useState('easy')
@@ -22,7 +21,6 @@ const Home = ({ navigation }) => {
       navigation.navigate('Game', { username, difficulty})
     }
   }
-
 
   return(
     <>
@@ -44,7 +42,7 @@ const Home = ({ navigation }) => {
       <TextInput
         editable = {true}
         textAlign = {'center'}
-        maxLength = {25}
+        maxLength = {12}
         style={{ height: 40, width: 300, borderColor: 'black', borderWidth: 1 ,backgroundColor: 'white'}}
         onChangeText={text => setUsername(text)}
         placeholder={'Insert your username'}
@@ -94,6 +92,5 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 });
-
 
 export default Home

@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { useSelector } from 'react-redux';
 
 
 function LeaderBoard ({ navigation, route }) {
@@ -8,6 +9,15 @@ function LeaderBoard ({ navigation, route }) {
   //   dispatch(solveBoard(board))
   //   setDataCopy((newDataCopy = solvedBoard))
   // }
+  const { player } = useSelector(state => state)
+  const [playerCopy, setPlayerCopy] = useState([])
+
+  useEffect(() => {
+    playerDeepCopy = JSON.parse(JSON.stringify(player))
+    playerDeepCopy.sort((a, b) => a.time - b.time)
+    setPlayerCopy(playerDeepCopy)
+    // console.log(playerCopy);
+  }, [player])
 
   function handleToHome() {
     navigation.navigate('Home')
@@ -17,19 +27,21 @@ function LeaderBoard ({ navigation, route }) {
     <View style={styles.container}>
       <Text
       style={{fontSize: 32, backgroundColor: '#f6f6ba', textAlign: 'center', paddingBottom: 30}}
-      >Congratulations, {route.params.username} </Text>
-      <Text>You LeaderBoard Sugoku Oishi</Text>
+      >Leaderboards</Text>
+
+      <View style={styles.flexCol}>
+        {
+            playerCopy?.map((singlePlayer, i) => {
+            <Text key={i}>
+              {singlePlayer.name} {singlePlayer.time} seconds
+            </Text>
+          })
+        }
+      </View>
+
       <StatusBar style="auto" />
 
       <View style={styles.flexRowButton}>
-          {/* <View
-          style={{marginBottom: 30}}>
-            <Button
-              color="black"
-              onPress={() => handle()}
-              title="Play Again"
-            />
-          </View> */}
           <View
           style={{marginTop: 30}}>
             <Button
@@ -55,6 +67,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f6f6ba',
     marginBottom: 40
+  },
+  flexCol: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 });
 

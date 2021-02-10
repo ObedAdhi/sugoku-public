@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBoard, solveBoard, validateBoard, resetStore} from '../store/actions/sudokuAction';
+import { getBoard, solveBoard, validateBoard, resetStore, addPlayerScore} from '../store/actions/sudokuAction';
 import CountDown from 'react-native-countdown-component';
 
 const windowWidth = Dimensions.get('window').width
@@ -11,12 +11,10 @@ const Game = ({navigation, route}) => {
   const dispatch = useDispatch()
   const { board, error, loading, solvedBoard, solvedStatus } = useSelector(state => state)
   const [ username, setUsername ] = useState(route.params.username)
-  const [ initData, setInitData ] = useState([]) //kalau kosong kena eror undefined
-  const [ playData, setPlayData ] = useState([]) //kalau kosong kena eror undefined
+  const [ initData, setInitData ] = useState([])
+  const [ playData, setPlayData ] = useState([])
+  const [ runTime, setRunTime ] = useState(0)
 
-  // address masalah: mengubah array sebelum dimasukkan ke state
-  // bagaimana cara agar async
-  // vbagaimana cara agar function set itu menunggu hasil dispatch
 
   useEffect(()=>{
     dispatch(getBoard(route.params.difficulty))
@@ -35,10 +33,12 @@ const Game = ({navigation, route}) => {
 
   useEffect(() => {
     if (solvedStatus === 'solved') {
+      dispatch(addPlayerScore({ name: route.params.username, time: runTime }))
       dispatch(resetStore())
       navigation.navigate('Finish', { username })
     }
   }, [solvedStatus])
+
 
   function handleTimeout () {
     dispatch(resetStore())
@@ -59,6 +59,7 @@ const Game = ({navigation, route}) => {
     dispatch(validateBoard({board: playData}))
   }
 
+
   if (error) {
     return (
       <View style={styles.container} >
@@ -78,7 +79,8 @@ const Game = ({navigation, route}) => {
         <StatusBar style="auto" />
         
         <CountDown
-          until={3}
+          onChange={() => setRunTime(runTime + 1)}
+          until={600}
           size={25}
           onFinish={() => handleTimeout()}
           timeToShow={['M', 'S']}
@@ -143,7 +145,8 @@ const Game = ({navigation, route}) => {
     );
   }
 }
-// if (dataCopy || dataCopy !== "")
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -186,6 +189,5 @@ const styles = StyleSheet.create({
     borderWidth: 0.7
   },
 });
-
 
 export default Game
