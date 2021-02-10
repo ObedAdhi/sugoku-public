@@ -1,4 +1,3 @@
-import axios from "axios"
 import { encodeParams } from "../../helpers/helper"
 import { Alert } from 'react-native';
 
@@ -8,6 +7,17 @@ const resetStore = () => {
     try {
       dispatch({
         type: 'RESET_STORE'
+      })
+    } catch (error) {
+    }
+  }
+}
+
+const addPlayerScore = (payload) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: 'ADD_PLAYER', payload
       })
     } catch (error) {
     }
@@ -91,5 +101,6 @@ export {
   getBoard,
   solveBoard,
   validateBoard,
-  resetStore
+  resetStore,
+  addPlayerScore
 }

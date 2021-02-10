@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
 
-function Finish ({ navigation, route }) {
+function Failed ({ navigation, route }) {
   // function handle() {
   //   dispatch(solveBoard(board))
   //   setDataCopy((newDataCopy = solvedBoard))
@@ -17,8 +17,8 @@ function Finish ({ navigation, route }) {
     <View style={styles.container}>
       <Text
       style={{fontSize: 32, backgroundColor: '#f6f6ba', textAlign: 'center', paddingBottom: 30}}
-      >Congratulations, {route.params.username} </Text>
-      <Text>You finish Sugoku Oishi</Text>
+      >Sorry, {route.params.username} </Text>
+      <Text>Time's up!</Text>
       <StatusBar style="auto" />
 
       <View style={styles.flexRowButton}>
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Finish
+export default Failed

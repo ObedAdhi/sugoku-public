@@ -14,10 +14,17 @@ const initialState = {
   error: null,
   solvedBoard: null,
   solvedStatus: null,
+  player: []
 }
 
 const sudokuReducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case 'ADD_PLAYER':
+      return {
+        ...state, player: state.player.concat(action.payload)
+      }
+
     case 'SAVE_INITIAL_BOARD':
       return {
         ...state, loading: false, status: 'unsolved', 
@@ -29,7 +36,7 @@ const sudokuReducer = (state = initialState, action) => {
       return {
         ...state, 
         loading: false, 
-        status: null, 
+        solvedStatus: null, 
         solvedBoard: null
       }
 

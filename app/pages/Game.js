@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBoard, solveBoard, validateBoard, resetStore} from '../store/actions/sudokuAction';
+import CountDown from 'react-native-countdown-component';
 
 const windowWidth = Dimensions.get('window').width
 
@@ -39,6 +40,10 @@ const Game = ({navigation, route}) => {
     }
   }, [solvedStatus])
 
+  function handleTimeout () {
+    dispatch(resetStore())
+    navigation.navigate('Failed', { username })
+  }
 
   function onChangeValue (value, indexRow, indexCol) {
     let newBoard = JSON.parse(JSON.stringify(playData))
@@ -71,6 +76,14 @@ const Game = ({navigation, route}) => {
       
       <View style={styles.container} >
         <StatusBar style="auto" />
+        
+        <CountDown
+          until={3}
+          size={25}
+          onFinish={() => handleTimeout()}
+          timeToShow={['M', 'S']}
+          timeLabels={{m: 'min', s: 'sec'}}
+        />
 
         <View style={styles.flexCol}>
           {
@@ -82,9 +95,17 @@ const Game = ({navigation, route}) => {
                       return (
                         <TextInput key={indexCol}
                           editable = {initData[indexRow][indexCol] === 0 ? true : false}
-                          
-                          style={styles.boxLight}
-                          color = {playData[indexRow][indexCol] === (initData[indexRow][indexCol]) ? 'teal' : 'black'}
+                          fo
+                          style={
+                            [
+                            {fontWeight: initData[indexRow][indexCol] === 0 ? 'bold' : 'normal' },
+                            styles.boxLight,
+                            ((indexRow >= 3 && indexRow <= 5 && (indexCol < 3 || indexCol > 5 )) || 
+                              (indexCol >= 3 && indexCol <= 5 && (indexRow < 3 || indexRow > 5)))
+                              ? styles.boxDark
+                              : styles.boxLight
+                          ]}
+                          color = {playData[indexRow][indexCol] === (initData[indexRow][indexCol]) ? '#ffd700' : 'white'}
                           textAlign = {'center'}
                           maxLength = {1}
                           keyboardType = 'numeric'
@@ -149,15 +170,20 @@ const styles = StyleSheet.create({
     marginBottom: 40
   },
   boxLight: {
-    backgroundColor: 'white',
+    backgroundColor: '#ae8454',
+    fontWeight: 'bold',
+    height: (windowWidth - 40) / 10 , 
+    width: (windowWidth - 40) / 10 , 
+    borderColor: 'black', 
+    borderWidth: 0.7,
+  },
+  boxDark: {
+    backgroundColor: '#673e0f',
     fontWeight: 'bold',
     height: (windowWidth - 40) / 10 , 
     width: (windowWidth - 40) / 10 , 
     borderColor: 'black', 
     borderWidth: 0.7
-  },
-  boxDark: {
-
   },
 });
 

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Alert, TouchableOpacity } from 'react-native';
 import {Picker} from '@react-native-picker/picker'
 
 
@@ -27,20 +27,25 @@ const Home = ({ navigation }) => {
   return(
     <>
     <Text
-    style={{fontSize: 32, backgroundColor: '#f6f6ba', textAlign: 'center', paddingTop: 30}}
-    >Sugoku  Oishi</Text>
+      style={{fontSize: 32, backgroundColor: '#f6f6ba',
+        textAlign: 'center', paddingTop: 30, shadowColor: 'gray',
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: {width: -1, height: 1},
+        textShadowRadius: 10}}
+      >SUGOKU{'\n'}OISHI</Text>
 
     <View style={styles.container} >
-      <StatusBar style='dark' />
+      <StatusBar style='white' />
       
       <Text
-      style={{fontSize: 24, backgroundColor: '#f6f6ba', textAlign: 'center', paddingBottom: 25}}
-      >Create your username</Text>
+        style={{fontSize: 24, backgroundColor: '#f6f6ba', textAlign: 'center', paddingBottom: 25,
+      }}
+        >Create your username</Text>
       <TextInput
         editable = {true}
         textAlign = {'center'}
         maxLength = {25}
-        style={{ height: 40, width: 300, borderColor: 'black', borderWidth: 1 }}
+        style={{ height: 40, width: 300, borderColor: 'black', borderWidth: 1 ,backgroundColor: 'white'}}
         onChangeText={text => setUsername(text)}
         placeholder={'Insert your username'}
         value={username}
@@ -56,11 +61,13 @@ const Home = ({ navigation }) => {
         <Picker.Item label="Random" value="random" />
       </Picker>
 
-      <Button
-        color='black'
+      <TouchableOpacity
         onPress={() => handleStart()}
-        title="START"
-      />
+        style={{ height: 70, width: 200, marginTop: 10, backgroundColor: 'black', justifyContent: 'center', borderRadius: 20}}>
+        <Text
+          style={{fontSize: 24, color: 'white', textAlign: 'center'}}
+          >START</Text>
+      </TouchableOpacity>
     </View>
     </>
   );

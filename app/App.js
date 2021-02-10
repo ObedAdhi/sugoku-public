@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Provider } from "react-redux";
-import { Home, Game, Finish } from './pages';
+import { Home, Game, Finish, Failed, LeaderBoard } from './pages';
 import store from './store';
 
 import 'react-native-gesture-handler';
@@ -15,9 +15,41 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name='Home' component={Home} />
-          <Stack.Screen name='Game' component={Game} />
-          <Stack.Screen name='Finish' component={Finish} />
+          <Stack.Screen name='Home' component={Home} 
+            options={{
+              headerTintColor: 'white',
+              headerStyle: {
+                backgroundColor: '#f4511e',
+              }
+            }}/>
+          <Stack.Screen name='Game' component={Game} 
+            options={{
+              headerTintColor: 'white',
+              headerStyle: {
+                backgroundColor: '#f4511e',
+              }
+            }}/>
+          <Stack.Screen name='Failed' component={Failed} 
+            options={{
+              headerTintColor: 'white',
+              headerStyle: {
+                backgroundColor: '#f4511e',
+              }
+            }}/>
+          <Stack.Screen name='Leader Board' component={LeaderBoard} 
+            options={{
+              headerTintColor: 'white',
+              headerStyle: {
+                backgroundColor: '#f4511e',
+              }
+            }}/>
+          <Stack.Screen name='Finish' component={Finish} 
+            options={{
+              headerTintColor: 'white',
+              headerStyle: {
+                backgroundColor: '#f4511e',
+              }
+            }}/>
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

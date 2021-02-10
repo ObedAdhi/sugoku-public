@@ -1,3 +1,5 @@
 export { default as Home } from './Home'
 export { default as Game } from './Game'
 export { default as Finish } from './Finish'
+export { default as Failed } from './Failed'
+export { default as LeaderBoard } from './LeaderBoard'
